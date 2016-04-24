@@ -2,6 +2,7 @@ var wire = require("js-wire");
 var tmsp = require("js-tmsp");
 var util = require("util");
 var merkle = require('merkle');
+var eyes = require("js-merkleeyes");
 
 function AutoApp(){
   this.txs = [];
@@ -91,6 +92,14 @@ AutoApp.prototype.query = function(req, cb) {
 
 console.log("auto: running");
 
+var program = require('commander');
+program
+  .version(version)
+  .option('-a, --addr [tcp://host:port|unix://path]', 'Listen address (default tcp://127.0.0.1:46658)')
+  .option('-e, --eyes [tcp://host:port|unix://path]', 'MerkleEyes address (default tcp://127.0.0.1:46659)')
+  .parse(process.argv);
+var addr = tmsp.ParseAddr(program.addr || "tcp://127.0.0.1:46658");
+
 var app = new AutoApp();
 var appServer = new tmsp.Server(app);
-appServer.server.listen(46658);
+appServer.server.listen(addr);
