@@ -94,7 +94,6 @@ console.log("auto: running");
 
 var program = require('commander');
 program
-  .version(version)
   .option('-a, --addr [tcp://host:port|unix://path]', 'Listen address (default tcp://127.0.0.1:46658)')
   .option('-e, --eyes [tcp://host:port|unix://path]', 'MerkleEyes address (default tcp://127.0.0.1:46659)')
   .parse(process.argv);
